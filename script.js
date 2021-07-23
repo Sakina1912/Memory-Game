@@ -1,17 +1,29 @@
 const main_grid = document.getElementById('main-grid')
 let scoreElm = document.getElementById('score')
 let score = 0
-// let createCard
-let arr = ['🍊','🍋','🍉','🍓']
 let active1 = null
 let active2 = null
-// let card = document.querySelectorAll('.card')
+let arr1 = []
+
+function createArr(){
+    for(i=0;i<=3;i++){
+        arr1.push('🍊')
+        arr1.push('🍋')
+        arr1.push('🍉')
+        arr1.push('🍓')
+    }
+    return arr1
+}
+
+function shuffleCard(){
+    arr1.sort(() => Math.random() - 0.5);
+    console.log(arr1);
+}
 
 
 //creating the cards
 function createCradElm(){
-    for(let i=1;i<=4;i++){
-        arr.forEach(elm =>{
+        arr1.forEach(elm =>{
             let createCard = document.createElement('div')
             createCard.classList.add('card')
             main_grid.appendChild(createCard)
@@ -29,7 +41,6 @@ function createCradElm(){
                 createCard.dataset.value=('🍓')
             }
         })
-    }
 }
 
 //closing the cards if they are not matched
@@ -49,32 +60,25 @@ function removeCard(){
     setTimeout(()=>{
     active1.style.opacity = '0'
     active2.style.opacity = '0'
+    active1.style.cursor = 'context-menu'
+    active2.style.cursor = 'context-menu'
     active1.innerText=''
     active2.innerText=''
     active1 = null
     active2 = null
     score++
     scoreElm.innerHTML=`${score}`
-    },1000)
+    },750)
 }
 
-// shuffleCard()
+createArr()
+shuffleCard()
 createCradElm()
 let card = document.querySelectorAll('.card')
-shuffleCard()
+// shuffleCard()
 
-console.log(main_grid)
+// console.log(main_grid)
 
-function shuffleCard(){
-    card.forEach(elm => {
-        let randomNumber = Math.floor(Math.random()*card.length)
-        let temp = card[elm]
-        card[elm] = card[randomNumber]
-        card[randomNumber] = temp
-    })
-    
-    console.log(card)
-}
 
 
 //adding the eventListener to the cards
